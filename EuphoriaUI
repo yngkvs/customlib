@@ -100,4 +100,5 @@ function Library:CreateWindow(opts)
     end
     return win
 end
+getgenv().UILibrary = Library
 return Library
