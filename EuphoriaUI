@@ -72,4 +72,32 @@ return p end
 function win:destroy() destroy(bg) destroy(outline) destroy(hdr) for i=1,#self.children do local c=self.children[i] if c and c.destroy then c:destroy() end end end
 return win end
 RS.Heartbeat:Connect(function(dt) for i=1,#invalidate_queue do local f=invalidate_queue[i] if f then f() end end invalidate_queue={} for i=1,#heartbeat_listeners do local f=heartbeat_listeners[i] if f then f(dt) end end end)
+function Library:CreateWindow(opts)
+    local lib = Library.new()
+    local title = (opts and opts.Title) or "Window"
+    local win = Library.window(lib, title)
+    if opts and opts.Center then
+        local cam = workspace.CurrentCamera
+        if cam then
+            local v = cam.ViewportSize
+            win.x = floor(v.X/2 - lib.layout.w/2)
+            win.y = floor(v.Y/2 - lib.layout.h/2)
+        end
+    end
+    win.Tabs = {}
+    win._tab_y = win.y + 40
+    function win:AddTab(name)
+        local label = text(win.x + 12, win._tab_y, 16, lib.theme.tokens.muted, name, false)
+        label.Visible = true
+        self.Tabs[name] = { Name = name, _label = label }
+        win._tab_y = win._tab_y + 22
+        return self.Tabs[name]
+    end
+    if opts and opts.AutoShow == false then
+        local function setVisible(v)
+            for _, t in pairs({}) do end
+        end
+    end
+    return win
+end
 return Library
