@@ -1152,7 +1152,8 @@ do
 
             local State = KeyPicker:GetState();
 
-            ContainerLabel.Text = string.format('[%s] %s (%s)', KeyPicker.Value, Info.Text, KeyPicker.Mode);
+            local stateText = State and 'On' or 'Off';
+            ContainerLabel.Text = string.format('[%s] %s (%s)', KeyPicker.Value, Info.Text, stateText);
 
             ContainerLabel.Visible = true;
             ContainerLabel.TextColor3 = State and Library.AccentColor or Library.FontColor;
@@ -2752,7 +2753,7 @@ do
 
     local WatermarkInner = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
-        BorderColor3 = Library.AccentColor;
+        BorderColor3 = Library.OutlineColor;
         BorderMode = Enum.BorderMode.Inset;
         Size = UDim2.new(1, 0, 1, 0);
         ZIndex = 201;
@@ -2760,7 +2761,8 @@ do
     });
 
     Library:AddToRegistry(WatermarkInner, {
-        BorderColor3 = 'AccentColor';
+        BackgroundColor3 = 'MainColor';
+        BorderColor3 = 'OutlineColor';
     });
 
     local InnerFrame = Library:Create('Frame', {
@@ -2770,6 +2772,18 @@ do
         Size = UDim2.new(1, -2, 1, -2);
         ZIndex = 202;
         Parent = WatermarkInner;
+    });
+
+    local WatermarkAccent = Library:Create('Frame', {
+        BackgroundColor3 = Library.AccentColor;
+        BorderSizePixel = 0;
+        Size = UDim2.new(1, 0, 0, 2);
+        ZIndex = 203;
+        Parent = InnerFrame;
+    });
+
+    Library:AddToRegistry(WatermarkAccent, {
+        BackgroundColor3 = 'AccentColor';
     });
 
     local Gradient = Library:Create('UIGradient', {
@@ -3173,7 +3187,7 @@ function Library:CreateWindow(...)
             BackgroundTransparency = 1;
             BorderSizePixel = 0;
             Position = UDim2.new(0, 8 - 1, 0, 8 - 1);
-            Size = UDim2.new(0.5, -10, 1, -16);
+            Size = UDim2.new(0.5, -10, 1, -8);
             CanvasSize = UDim2.new(0, 0, 0, 0);
             BottomImage = '';
             TopImage = '';
@@ -3186,7 +3200,7 @@ function Library:CreateWindow(...)
             BackgroundTransparency = 1;
             BorderSizePixel = 0;
             Position = UDim2.new(0.5, 4 + 1, 0, 8 - 1);
-            Size = UDim2.new(0.5, -10, 1, -16);
+            Size = UDim2.new(0.5, -10, 1, -8);
             CanvasSize = UDim2.new(0, 0, 0, 0);
             BottomImage = '';
             TopImage = '';
