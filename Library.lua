@@ -2948,7 +2948,7 @@ function Library:CreateWindow(...)
     end
 
     if type(Config.Title) ~= 'string' then Config.Title = 'No title' end
-    if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 3 end
+    if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 1 end
     if type(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
 
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
@@ -3039,10 +3039,10 @@ function Library:CreateWindow(...)
     });
 
     Library:Create('UIPadding', {
-        PaddingTop = UDim.new(0, 2);
-        PaddingBottom = UDim.new(0, 2);
-        PaddingLeft = UDim.new(0, 2);
-        PaddingRight = UDim.new(0, 2);
+        PaddingTop = UDim.new(0, 0);
+        PaddingBottom = UDim.new(0, 5);
+        PaddingLeft = UDim.new(0, 3);
+        PaddingRight = UDim.new(0, 3);
         Parent = TabArea;
     });
 
