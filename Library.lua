@@ -148,7 +148,7 @@ function Library:CreateLabel(Properties, IsHud)
         BackgroundTransparency = 1;
         Font = Library.Font;
         TextColor3 = Library.FontColor;
-        TextSize = 16;
+        TextSize = 14;
         TextStrokeTransparency = 0;
     });
 
@@ -1959,6 +1959,10 @@ do
         assert(Info.Max, 'AddSlider: Missing maximum value.');
         assert(Info.Rounding, 'AddSlider: Missing rounding value.');
 
+        if Info.Compact == nil then
+            Info.Compact = true;
+        end;
+
         local Slider = {
             Value = Info.Default;
             Min = Info.Min;
@@ -2944,7 +2948,7 @@ function Library:CreateWindow(...)
     end
 
     if type(Config.Title) ~= 'string' then Config.Title = 'No title' end
-    if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 6 end
+    if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 3 end
     if type(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
 
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
@@ -3034,6 +3038,14 @@ function Library:CreateWindow(...)
         Parent = MainSectionInner;
     });
 
+    Library:Create('UIPadding', {
+        PaddingTop = UDim.new(0, 2);
+        PaddingBottom = UDim.new(0, 2);
+        PaddingLeft = UDim.new(0, 2);
+        PaddingRight = UDim.new(0, 2);
+        Parent = TabArea;
+    });
+
     local TabListLayout = Library:Create('UIListLayout', {
         Padding = UDim.new(0, Config.TabPadding);
         FillDirection = Enum.FillDirection.Horizontal;
@@ -3085,6 +3097,7 @@ function Library:CreateWindow(...)
             Position = UDim2.new(0, 0, 0, 0);
             Size = UDim2.new(1, 0, 1, -1);
             Text = Name;
+            TextSize = 16;
             ZIndex = 1;
             Parent = TabButton;
         });
