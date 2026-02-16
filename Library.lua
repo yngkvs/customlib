@@ -2988,7 +2988,7 @@ function Library:CreateWindow(...)
     if type(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
 
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
-    if typeof(Config.Size) ~= 'UDim2' then Config.Size = UDim2.fromOffset(550, 650) end
+    if typeof(Config.Size) ~= 'UDim2' then Config.Size = UDim2.fromOffset(550, 700) end
 
     if Config.Center then
         Config.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -3070,7 +3070,7 @@ function Library:CreateWindow(...)
         BackgroundTransparency = 1;
         BorderColor3 = Library.OutlineColor;
         Position = UDim2.new(0, 8, 0, 8);
-        Size = UDim2.new(1, -16, 0, 24);
+        Size = UDim2.new(1, -16, 0, 28);
         ZIndex = 1;
         Parent = MainSectionInner;
     });
@@ -3093,8 +3093,8 @@ function Library:CreateWindow(...)
     local TabContainer = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
         BorderColor3 = Library.OutlineColor;
-        Position = UDim2.new(0, 8, 0, 33);
-        Size = UDim2.new(1, -16, 1, -41);
+        Position = UDim2.new(0, 8, 0, 37);
+        Size = UDim2.new(1, -16, 1, -45);
         ZIndex = 2;
         Parent = MainSectionInner;
     });
