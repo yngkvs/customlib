@@ -2777,7 +2777,8 @@ do
     local WatermarkAccent = Library:Create('Frame', {
         BackgroundColor3 = Library.AccentColor;
         BorderSizePixel = 0;
-        Size = UDim2.new(1, 0, 0, 2);
+        Position = UDim2.new(0, -1, 0, -1);
+        Size = UDim2.new(1, 2, 0, 2);
         ZIndex = 203;
         Parent = InnerFrame;
     });
