@@ -2050,6 +2050,11 @@ do
             Parent = SliderInner;
         });
 
+        Slider.Outer = SliderOuter;
+        Slider.Inner = SliderInner;
+        Slider.Fill = Fill;
+        Slider.Label = DisplayLabel;
+
         Library:OnHighlight(SliderOuter, SliderOuter,
             { BorderColor3 = 'AccentColor' },
             { BorderColor3 = 'Black' }
@@ -2142,6 +2147,23 @@ do
                 Library:AttemptSave();
             end;
         end);
+
+        function Slider:AddSlider(Idx2, Info2)
+            Info2 = Info2 or {};
+            if Info2.BlankSize == nil then
+                Info2.BlankSize = 0;
+            end;
+
+            local NewSlider = Groupbox:AddSlider(Idx2, Info2);
+
+            self.Outer.Size = UDim2.new(0.5, -2, 0, 13);
+            NewSlider.Outer.Size = UDim2.new(0.5, -2, 0, 13);
+
+            NewSlider.Outer.Parent = self.Outer;
+            NewSlider.Outer.Position = UDim2.new(1, 3, 0, 0);
+
+            return NewSlider;
+        end;
 
         Slider:Display();
         Groupbox:AddBlank(Info.BlankSize or 6);
