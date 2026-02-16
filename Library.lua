@@ -2055,6 +2055,17 @@ do
         Slider.Fill = Fill;
         Slider.Label = DisplayLabel;
 
+        local function GetSliderMaxSize()
+            local absolute = Slider.Inner.AbsoluteSize.X
+
+            if absolute <= 0 then
+                return Slider.MaxSize
+            end
+
+            Slider.MaxSize = absolute
+            return absolute
+        end
+
         Library:OnHighlight(SliderOuter, SliderOuter,
             { BorderColor3 = 'AccentColor' },
             { BorderColor3 = 'Black' }
@@ -2080,10 +2091,11 @@ do
                 DisplayLabel.Text = string.format('%s/%s', Slider.Value .. Suffix, Slider.Max .. Suffix);
             end
 
-            local X = math.ceil(Library:MapValue(Slider.Value, Slider.Min, Slider.Max, 0, Slider.MaxSize));
+            local maxSize = GetSliderMaxSize()
+            local X = math.ceil(Library:MapValue(Slider.Value, Slider.Min, Slider.Max, 0, maxSize));
             Fill.Size = UDim2.new(0, X, 1, 0);
 
-            HideBorderRight.Visible = not (X == Slider.MaxSize or X == 0);
+            HideBorderRight.Visible = not (X == maxSize or X == 0);
         end;
 
         function Slider:OnChanged(Func)
@@ -2101,7 +2113,8 @@ do
         end;
 
         function Slider:GetValueFromXOffset(X)
-            return Round(Library:MapValue(X, 0, Slider.MaxSize, Slider.Min, Slider.Max));
+            local maxSize = GetSliderMaxSize()
+            return Round(Library:MapValue(X, 0, maxSize, Slider.Min, Slider.Max));
         end;
 
         function Slider:SetValue(Str)
@@ -2128,7 +2141,8 @@ do
 
                 while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
                     local nMPos = Mouse.X;
-                    local nX = math.clamp(gPos + (nMPos - mPos) + Diff, 0, Slider.MaxSize);
+                    local maxSize = GetSliderMaxSize()
+                    local nX = math.clamp(gPos + (nMPos - mPos) + Diff, 0, maxSize);
 
                     local nValue = Slider:GetValueFromXOffset(nX);
                     local OldValue = Slider.Value;
@@ -2157,7 +2171,7 @@ do
             local NewSlider = Groupbox:AddSlider(Idx2, Info2);
 
             self.Outer.Size = UDim2.new(0.5, -2, 0, 13);
-            NewSlider.Outer.Size = UDim2.new(0.5, -2, 0, 13);
+            NewSlider.Outer.Size = UDim2.new(1, -2, 0, 13);
 
             NewSlider.Outer.Parent = self.Outer;
             NewSlider.Outer.Position = UDim2.new(1, 3, 0, 0);
@@ -2970,11 +2984,11 @@ function Library:CreateWindow(...)
     end
 
     if type(Config.Title) ~= 'string' then Config.Title = 'No title' end
-    if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 1 end
+    if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 2 end
     if type(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
 
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
-    if typeof(Config.Size) ~= 'UDim2' then Config.Size = UDim2.fromOffset(550, 600) end
+    if typeof(Config.Size) ~= 'UDim2' then Config.Size = UDim2.fromOffset(550, 650) end
 
     if Config.Center then
         Config.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -3019,6 +3033,7 @@ function Library:CreateWindow(...)
         Size = UDim2.new(1, -16, 0, 25);
         Text = Config.Title or '';
         TextXAlignment = Enum.TextXAlignment.Center;
+        TextSize = 18;
         ZIndex = 1;
         Parent = Inner;
     });
@@ -3055,7 +3070,7 @@ function Library:CreateWindow(...)
         BackgroundTransparency = 1;
         BorderColor3 = Library.OutlineColor;
         Position = UDim2.new(0, 8, 0, 8);
-        Size = UDim2.new(1, -16, 0, 21);
+        Size = UDim2.new(1, -16, 0, 24);
         ZIndex = 1;
         Parent = MainSectionInner;
     });
@@ -3078,8 +3093,8 @@ function Library:CreateWindow(...)
     local TabContainer = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
         BorderColor3 = Library.OutlineColor;
-        Position = UDim2.new(0, 8, 0, 30);
-        Size = UDim2.new(1, -16, 1, -38);
+        Position = UDim2.new(0, 8, 0, 33);
+        Size = UDim2.new(1, -16, 1, -41);
         ZIndex = 2;
         Parent = MainSectionInner;
     });
