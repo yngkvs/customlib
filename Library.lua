@@ -2171,7 +2171,7 @@ do
             local NewSlider = Groupbox:AddSlider(Idx2, Info2);
 
             self.Outer.Size = UDim2.new(0.5, -2, 0, 13);
-            NewSlider.Outer.Size = UDim2.new(1, -2, 0, 13);
+            NewSlider.Outer.Size = UDim2.new(1, -4, 0, 13);
 
             NewSlider.Outer.Parent = self.Outer;
             NewSlider.Outer.Position = UDim2.new(1, 3, 0, 0);
@@ -2273,12 +2273,13 @@ do
             Parent = DropdownInner;
         });
 
-        local DropdownArrow = Library:Create('ImageLabel', {
-            AnchorPoint = Vector2.new(0, 0.5);
+        local DropdownArrow = Library:CreateLabel({
+            AnchorPoint = Vector2.new(1, 0.5);
             BackgroundTransparency = 1;
-            Position = UDim2.new(1, -16, 0.5, 0);
+            Position = UDim2.new(1, -4, 0.5, 0);
             Size = UDim2.new(0, 12, 0, 12);
-            Image = 'http://www.roblox.com/asset/?id=6282522798';
+            Text = '+';
+            TextXAlignment = Enum.TextXAlignment.Center;
             ZIndex = 8;
             Parent = DropdownInner;
         });
@@ -2529,13 +2530,13 @@ do
         function Dropdown:OpenDropdown()
             ListOuter.Visible = true;
             Library.OpenedFrames[ListOuter] = true;
-            DropdownArrow.Rotation = 180;
+            DropdownArrow.Text = '-';
         end;
 
         function Dropdown:CloseDropdown()
             ListOuter.Visible = false;
             Library.OpenedFrames[ListOuter] = nil;
-            DropdownArrow.Rotation = 0;
+            DropdownArrow.Text = '+';
         end;
 
         function Dropdown:OnChanged(Func)
@@ -3033,7 +3034,7 @@ function Library:CreateWindow(...)
         Size = UDim2.new(1, -16, 0, 25);
         Text = Config.Title or '';
         TextXAlignment = Enum.TextXAlignment.Center;
-        TextSize = 18;
+        TextSize = 16;
         ZIndex = 1;
         Parent = Inner;
     });
