@@ -3026,6 +3026,7 @@ function Library:CreateWindow(...)
 
     local TabArea = Library:Create('Frame', {
         BackgroundTransparency = 1;
+        BorderColor3 = Library.OutlineColor;
         Position = UDim2.new(0, 8, 0, 8);
         Size = UDim2.new(1, -16, 0, 21);
         ZIndex = 1;
@@ -3165,15 +3166,15 @@ function Library:CreateWindow(...)
             end;
 
             Blocker.BackgroundTransparency = 0;
-            TabButton.BackgroundColor3 = Library.MainColor;
-            Library.RegistryMap[TabButton].Properties.BackgroundColor3 = 'MainColor';
+            TabButton.BackgroundColor3 = Library.BackgroundColor;
+            Library.RegistryMap[TabButton].Properties.BackgroundColor3 = 'BackgroundColor';
             TabFrame.Visible = true;
         end;
 
         function Tab:HideTab()
             Blocker.BackgroundTransparency = 1;
-            TabButton.BackgroundColor3 = Library.BackgroundColor;
-            Library.RegistryMap[TabButton].Properties.BackgroundColor3 = 'BackgroundColor';
+            TabButton.BackgroundColor3 = Library.MainColor;
+            Library.RegistryMap[TabButton].Properties.BackgroundColor3 = 'MainColor';
             TabFrame.Visible = false;
         end;
 
