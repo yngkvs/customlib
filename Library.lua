@@ -2058,12 +2058,13 @@ do
         local function GetSliderMaxSize()
             local absolute = Slider.Inner.AbsoluteSize.X
 
-            if absolute <= 0 then
+            if absolute <= 2 then
                 return Slider.MaxSize
             end
 
-            Slider.MaxSize = absolute
-            return absolute
+            local adjusted = math.max(absolute - 2, 0)
+            Slider.MaxSize = adjusted
+            return adjusted
         end
 
         Library:OnHighlight(SliderOuter, SliderOuter,
@@ -2171,10 +2172,10 @@ do
             local NewSlider = Groupbox:AddSlider(Idx2, Info2);
 
             self.Outer.Size = UDim2.new(0.5, -2, 0, 13);
-            NewSlider.Outer.Size = UDim2.new(1, -4, 0, 13);
+            NewSlider.Outer.Size = UDim2.new(1, -6, 0, 13);
 
             NewSlider.Outer.Parent = self.Outer;
-            NewSlider.Outer.Position = UDim2.new(1, 3, 0, 0);
+            NewSlider.Outer.Position = UDim2.new(1, 5, 0, 0);
 
             return NewSlider;
         end;
