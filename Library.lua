@@ -2177,6 +2177,10 @@ do
             NewSlider.Outer.Parent = self.Outer;
             NewSlider.Outer.Position = UDim2.new(1, 5, 0, 0);
 
+            self:Display();
+            NewSlider:Display();
+            Groupbox:Resize();
+
             return NewSlider;
         end;
 
