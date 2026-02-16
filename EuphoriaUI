@@ -2944,7 +2944,7 @@ function Library:CreateWindow(...)
     end
 
     if type(Config.Title) ~= 'string' then Config.Title = 'No title' end
-    if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 0 end
+    if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 8 end
     if type(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
 
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
@@ -3033,7 +3033,7 @@ function Library:CreateWindow(...)
     });
 
     local TabListLayout = Library:Create('UIListLayout', {
-        Padding = UDim.new(0, Config.TabPadding + 4);
+        Padding = UDim.new(0, Config.TabPadding);
         FillDirection = Enum.FillDirection.Horizontal;
         SortOrder = Enum.SortOrder.LayoutOrder;
         Parent = TabArea;
@@ -3101,20 +3101,6 @@ function Library:CreateWindow(...)
             BackgroundColor3 = 'MainColor';
         });
 
-        local TopHighlight = Library:Create('Frame', {
-            BackgroundColor3 = Library.AccentColor;
-            BorderSizePixel = 0;
-            Position = UDim2.new(0, 0, 0, 0);
-            Size = UDim2.new(1, 0, 0, 2);
-            BackgroundTransparency = 1;
-            ZIndex = 3;
-            Parent = TabButton;
-        });
-
-        Library:AddToRegistry(TopHighlight, {
-            BackgroundColor3 = 'AccentColor';
-        });
-
         local TabFrame = Library:Create('Frame', {
             Name = 'TabFrame',
             BackgroundTransparency = 1;
@@ -3179,7 +3165,6 @@ function Library:CreateWindow(...)
             end;
 
             Blocker.BackgroundTransparency = 0;
-            TopHighlight.BackgroundTransparency = 0;
             TabButton.BackgroundColor3 = Library.MainColor;
             Library.RegistryMap[TabButton].Properties.BackgroundColor3 = 'MainColor';
             TabFrame.Visible = true;
@@ -3187,7 +3172,6 @@ function Library:CreateWindow(...)
 
         function Tab:HideTab()
             Blocker.BackgroundTransparency = 1;
-            TopHighlight.BackgroundTransparency = 1;
             TabButton.BackgroundColor3 = Library.BackgroundColor;
             Library.RegistryMap[TabButton].Properties.BackgroundColor3 = 'BackgroundColor';
             TabFrame.Visible = false;
